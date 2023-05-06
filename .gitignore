@@ -1,0 +1,6 @@
+.idea
+node_modules
+voices/*
+!voices/keep
+config/default.json
+config/production.json
