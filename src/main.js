@@ -31,7 +31,7 @@ bot.on(message('voice'), async (context) => {
     const oggPath = await ogg.create(link.href, userId)
     const mp3Path = await ogg.toMp3(oggPath, userId)
     const text = await openai.transcription(mp3Path)
-    await context.reply(code(`Ваш запрос: ${text}`))
+    await context.reply(code(`Ваш запрос: ${text}\nЖдем ответ сервера...`))
     context.session.messages.push({
       role: openai.roles.USER,
       content: text,
@@ -44,6 +44,7 @@ bot.on(message('voice'), async (context) => {
     await context.reply(response.content)
   } catch (error) {
     console.log('Error while voice message:', error)
+    await context.reply(code('Error while voice message: ', error))
   }
 })
 
@@ -63,7 +64,8 @@ bot.on(message('text'), async (context) => {
     })
     await context.reply(response.content)
   } catch (error) {
-    console.log('Error while voice message:', error)
+    console.log('Error while text message: ', error)
+    await context.reply(code('Error while text message: ', error))
   }
 })
 

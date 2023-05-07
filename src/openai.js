@@ -26,7 +26,7 @@ class OpenAI {
 
       return response.data.choices[0].message
     } catch (e) {
-      console.log('Error while getting answer from the chat:', e.message)
+      console.log('Error while getting answer from the chat: ', e.message)
     }
   }
 
@@ -38,7 +38,7 @@ class OpenAI {
       )
       return response.data.text
     } catch (e) {
-      console.log('Error while transcription speech to text:', e.message)
+      console.log('Error while transcription speech to text: ', e.message)
     }
   }
 }

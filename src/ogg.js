@@ -28,7 +28,7 @@ class OggConverter {
           .run()
       })
     } catch (e) {
-      console.log('Error while converting ogg to mp3:', e.message)
+      console.log('Error while converting ogg to mp3: ', e.message)
     }
   }
 
@@ -42,7 +42,7 @@ class OggConverter {
         stream.on('finish', () => resolve_(oggPath))
       })
     } catch (e) {
-      console.log('Error while creating ogg:', e.message)
+      console.log('Error while creating ogg: ', e.message)
     }
   }
 }
