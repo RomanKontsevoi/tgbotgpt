@@ -13,4 +13,8 @@ run:
 stop:
 	docker stop -t 5 $(IMAGE_NAME)
 
+# Restart the docker container
 restart: stop run
+
+# Rebuild and start the new docker container
+refresh: stop build run
