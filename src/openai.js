@@ -17,16 +17,22 @@ class OpenAI {
     this.openai = new OpenAIApi(configuration)
   }
 
-  async chat(messages) {
+  async chat(messages, context) {
     try {
       const response = await this.openai.createChatCompletion({
         model: "gpt-3.5-turbo",
         messages
       })
 
+      if (!response.data.choices[0].message) {
+        await context.reply(JSON.stringify(response.data))
+      }
+
       return response.data.choices[0].message
     } catch (e) {
-      console.log('Error while getting answer from the chat: ', e.message)
+      const error = new Error(`Error while getting answer from the chat: ${e.message}`)
+      console.log(error)
+      throw error
     }
   }
 

@@ -37,11 +37,12 @@ bot.on(message('voice'), async (context) => {
       content: text,
     })
     const response = await openai.chat(context.session.messages)
+    const content = response?.content ?? "Ошибка получения ответа"
     context.session.messages.push({
       role: openai.roles.ASSISTANT,
-      content: response.content,
+      content,
     })
-    await context.reply(response.content)
+    await context.reply(content)
   } catch (error) {
     console.log('Error while voice message:', error)
     await context.reply(code('Error while voice message: ', error))
