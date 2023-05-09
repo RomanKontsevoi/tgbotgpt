@@ -46,6 +46,7 @@ bot.on(message('voice'), async (context) => {
   } catch (error) {
     console.log('Error while voice message:', error)
     await context.reply(code('Error while voice message: ', error))
+    context.session = INITIAL_SESSION
   }
 })
 
@@ -67,6 +68,7 @@ bot.on(message('text'), async (context) => {
   } catch (error) {
     console.log('Error while text message: ', error)
     await context.reply(code('Error while text message: ', error))
+    context.session = INITIAL_SESSION
   }
 })
 

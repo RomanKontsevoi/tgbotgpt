@@ -17,4 +17,4 @@ stop:
 restart: stop run
 
 # Rebuild and start the new docker container
-refresh: stop build run
+refresh: build run

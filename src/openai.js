@@ -6,7 +6,7 @@ class OpenAI {
   roles = {
     ASSISTANT: 'assistant',
     SYSTEM: 'system',
-    USER: 'user'
+    USER: 'user',
   }
 
   constructor(apiKey) {
@@ -17,16 +17,12 @@ class OpenAI {
     this.openai = new OpenAIApi(configuration)
   }
 
-  async chat(messages, context) {
+  async chat(messages) {
     try {
       const response = await this.openai.createChatCompletion({
         model: "gpt-3.5-turbo",
         messages
       })
-
-      if (!response.data.choices[0].message) {
-        await context.reply(JSON.stringify(response.data))
-      }
 
       return response.data.choices[0].message
     } catch (e) {
