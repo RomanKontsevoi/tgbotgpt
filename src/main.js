@@ -1,7 +1,7 @@
-import { Telegraf, session } from 'telegraf'
+import { session, Telegraf } from 'telegraf'
 import { message } from 'telegraf/filters'
 import config from 'config'
-import { code } from 'telegraf/format'
+import { code, join } from 'telegraf/format'
 import { ogg } from './ogg.js'
 import { openai } from './openai.js'
 
@@ -31,13 +31,13 @@ bot.on(message('voice'), async (context) => {
     const oggPath = await ogg.create(link.href, userId)
     const mp3Path = await ogg.toMp3(oggPath, userId)
     const text = await openai.transcription(mp3Path)
-    await context.reply(code(`Ваш запрос: ${text}\nЖдем ответ сервера...`))
+    await context.reply(join([code('Ваш запрос:'), code(text), code('Ждем ответ сервера...')], '\n'))
     context.session.messages.push({
       role: openai.roles.USER,
       content: text,
     })
     const response = await openai.chat(context.session.messages)
-    const content = response?.content ?? "Ошибка получения ответа"
+    const content = response?.content ?? 'Ошибка получения ответа'
     context.session.messages.push({
       role: openai.roles.ASSISTANT,
       content,
